@@ -1,0 +1,22 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tableHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 52px;
+    border-bottom: 1px #414144 solid;
+    z-index: 10;
+    color: #A1A1AA;
+    div {
+        height: 100%;
+        align-content: center;
+        border-right: 1px #414144 solid;
+        padding: 0 10px;
+        color: white;
+    }
+}

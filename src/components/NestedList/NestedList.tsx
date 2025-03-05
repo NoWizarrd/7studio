@@ -7,7 +7,6 @@ import Collapse from '@mui/material/Collapse';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import SidebarIcon from '../../assets/SidebarIcon.png'
-import './NestedList.module.scss'
 
 export default function NestedList() {
   const [open, setOpen] = React.useState(true);
@@ -22,11 +21,11 @@ export default function NestedList() {
 
   return (
     <List
-      sx={{ width: '100%', paddingTop: 0}}
+      sx={{ width: '100%', paddingTop: 0, minWidth: '220px'}}
       component="nav"
     >
-      <ListItemButton onClick={handleClick}>
-        <ListItemText primary="Название проекта" />
+      <ListItemButton onClick={handleClick}  sx={{borderBottom: '1px #414144 solid'}}>
+        <ListItemText primary="Название проекта"/>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
