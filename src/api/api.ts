@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { OutlayRowRequest, RowResponse } from '../types/types';
 
 const API_BASE = 'http://185.244.172.108:8081/v1/outlay-rows/entity/148548/row';
@@ -16,7 +16,6 @@ export const useFetchRows = () =>
   });
 
 export const useCreateRow = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (row: OutlayRowRequest) => {
       const res = await fetch(`${API_BASE}/create`, {
@@ -27,12 +26,10 @@ export const useCreateRow = () => {
       if (!res.ok) throw new Error('Ошибка создания строки');
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['outlayRows'] }),
   });
 };
 
 export const useUpdateRow = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async ({ id, ...updateData }: OutlayRowRequest & { id: number }) => {
       const res = await fetch(`${API_BASE}/${id}/update`, {
@@ -43,17 +40,14 @@ export const useUpdateRow = () => {
       if (!res.ok) throw new Error('Ошибка обновления строки');
       return res.json();
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['outlayRows'] }),
   });
 };
 
 export const useDeleteRow = () => {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: number) => {
       const res = await fetch(`${API_BASE}/${id}/delete`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Ошибка удаления строки');
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['outlayRows'] }),
   });
 };

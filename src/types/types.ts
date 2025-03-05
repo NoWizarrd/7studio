@@ -16,6 +16,7 @@ export interface OutlayRowRequest {
   
   export interface RowResponse {
     id: number;
+    parentId: number | null;
     equipmentCosts: number;
     estimatedProfit: number;
     machineOperatorSalary: number;
@@ -26,7 +27,7 @@ export interface OutlayRowRequest {
     rowName: string;
     salary: number;
     supportCosts: number;
-    total: number;
+    total?: number;
     child?: RowResponse[];
   }
   
