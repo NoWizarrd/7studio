@@ -1,7 +1,9 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, QueryClient } from '@tanstack/react-query';
 import { OutlayRowRequest, RowResponse } from '../types/types';
 
 const API_BASE = 'http://185.244.172.108:8081/v1/outlay-rows/entity/148548/row';
+
+const queryClient = new QueryClient()
 
 export const useFetchRows = () =>
   useQuery<RowResponse[]>({
@@ -26,6 +28,7 @@ export const useCreateRow = () => {
       if (!res.ok) throw new Error('Ошибка создания строки');
       return res.json();
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
 
@@ -40,6 +43,7 @@ export const useUpdateRow = () => {
       if (!res.ok) throw new Error('Ошибка обновления строки');
       return res.json();
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
 
@@ -49,5 +53,6 @@ export const useDeleteRow = () => {
       const res = await fetch(`${API_BASE}/${id}/delete`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Ошибка удаления строки');
     },
+    onSuccess: () => queryClient.invalidateQueries(),
   });
 };
